@@ -1,67 +1,79 @@
 #!/usr/bin/python3
-"""
-Defines a class Rectangle
-"""
 
 
-class Rectangle:
-    """Representation of a rectangle"""
+class Rectangle():
+    """rectangle class for storing rectangle data
+    """
     def __init__(self, width=0, height=0):
-        """Initializes the rectangle"""
+        """ instantiation method for object creation
+        """
         self.width = width
         self.height = height
 
+    def __str__(self):
+        """ provides __str__ method for object when str()
+            or print() is called
+        """
+        string = ""
+        if self.width == 0 or self.height == 0:
+            return string
+
+        for i in range(0, self.height):
+            for j in range(0, self.width):
+                string += '#'
+            if i != self.height - 1:
+                string += '\n'
+        return string
+
+    def __repr__(self):
+        """ provides __repr__ method for object when repr()
+            is called, or eval().
+        """
+        string = "Rectangle("
+        string += str(self.width)
+        string += ", " + str(self.height) + ")"
+        return string
+
     def __del__(self):
-        """prints a string when an instance has been deleted"""
+        """ called when a rectangle instance is deleted """
         print("Bye rectangle...")
 
     @property
-    def width(self):
-        """getter for the private instance attribute width"""
-        return self.__width
-
-    @width.setter
-    def width(self, value):
-        """setter for the private instance attribute width"""
-        if type(value) is not int:
-            raise TypeError("width must be an integer")
-        if value < 0:
-            raise ValueError("width must be >= 0")
-        self.__width = value
-
-    @property
     def height(self):
-        """getter for the private instance attribute height"""
+        """ getter for height property """
         return self.__height
 
     @height.setter
     def height(self, value):
-        """setter for the private instance attribute height"""
-        if type(value) is not int:
+        """ setter for height property """
+        if not isinstance(value, int):
             raise TypeError("height must be an integer")
-        if value < 0:
+        elif value < 0:
             raise ValueError("height must be >= 0")
-        self.__height = value
+        else:
+            self.__height = value
+
+    @property
+    def width(self):
+        """ getter for width property """
+        return self.__width
+
+    @width.setter
+    def width(self, value):
+        """ setter for width property """
+        if not isinstance(value, int):
+            raise TypeError("width must be an integer")
+        elif value < 0:
+            raise ValueError("width must be >= 0")
+        else:
+            self.__width = value
 
     def area(self):
-        """returns the area of the rectangle"""
-        return self.__width * self.__height
+        """ gets the area of rectangle instance """
+        return (self.width * self.height)
 
     def perimeter(self):
-        """returns the perimeter of the rectangle"""
-        if self.__width == 0 or self.__height == 0:
+        """ gets the perimeter of a rectangle instance """
+        if self.width == 0 or self.height == 0:
             return 0
-        return (self.__width * 2) + (self.__height * 2)
-
-    def __str__(self):
-        """returns printable string representation of the rectangle"""
-        string = ""
-        if self.__width != 0 and self.__height != 0:
-            string += "\n".join("#" * self.__width
-                                for j in range(self.__height))
-        return string
-
-    def __repr__(self):
-        """returns a string representation of the rectangle for reproduction"""
-        return "Re
-ctangle({:d}, {:d})".format(self.__width, self.__height)
+        return ((2 * self.width) + (2 * self.height))

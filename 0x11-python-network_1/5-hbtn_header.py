@@ -1,13 +1,13 @@
 #!/usr/bin/python3
+"""Retrieve header with requests module
 """
-Python script that takes in a URL, sends a request to the URL and
-displays the value of the variable X-Request-Id
-"""
+
 import requests
-import sys
+from sys import argv
+
 
 if __name__ == '__main__':
-
-    res = requests.get(sys.argv[1])
-    head = res.headers.get('X-Request-Id')
-    print(head)
+    url = argv[1]
+    r = requests.get(url)
+    r = r.headers
+    print(r.get('X-Request-Id'))

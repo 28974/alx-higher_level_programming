@@ -1,19 +1,21 @@
 #!/usr/bin/python3
+"""Make a POST request
 """
-Python script that takes in a URL and an email, sends a POST request
-to the passed URL with the email as a parameter
-"""
+
 import urllib.request
-import urllib.parse
-import sys
+from sys import argv
 
-if __name__ == "__main__":
+if __name__ == '__main__':
+    url = argv[1]
+    email = {'email': argv[2]}
 
-    url = sys.argv[1]
-    new_value = {'email': sys.argv[2]}
+    email = urllib.parse.urlencode(email)
+    email = email.encode('utf-8')
 
-    data = urllib.parse.urlencode(new_value).encode()
-    req = urllib.request.Request(url, data)
-    with urllib.request.urlopen(req) as response:
-        val = response.read().decode('utf8')
-    print(val)
+    # make request object
+    request = urllib.request.Request(url, email)
+
+    with urllib.request.urlopen(request) as response:
+        response = response.read()
+        response = response.decode('utf-8')
+        print(response)

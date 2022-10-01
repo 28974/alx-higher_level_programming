@@ -1,16 +1,22 @@
 #!/usr/bin/python3
-"""  fetches github user repo commits  """
+"""Request commits via GitHub API
+"""
+
 import requests
 from sys import argv
 
-if __name__ == "__main__":
-    r = requests.get('https://api.github.com/repos/{}/{}/commits'
-                     .format(argv[2], argv[1]))
-    counter = 0
-    for commit in sorted(r.json(), key=lambda c: c.get('commit')
-                         .get('author').get('date'), reverse=True):
-        print(commit.get('sha') + ": ", end="")
-        print(commit.get('commit').get('author').get('name'))
-        counter += 1
-        if counter == 10:
-            break
+if __name__ == '__main__':
+
+    repo = argv[1]
+    owner = argv[2]
+
+    url = 'https://api.github.com/repos/{}/{}/\
+commits?per_page=10'.format(owner, repo)
+
+    r = requests.get(url)
+
+    r = r.json()
+
+    for commit in r:
+        print('{}: {}'.format(commit.get('sha'),
+                              commit.get('commit').get('author').get('name')))

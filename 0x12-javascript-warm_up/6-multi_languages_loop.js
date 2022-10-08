@@ -1,7 +1,6 @@
 #!/usr/bin/node
-
-const arrayStrings = ['C is fun', 'Python is cool', 'JavaScript is amazing'];
-let i = 0;
-for (i; i < arrayStrings.length; i++) {
-  console.log(arrayStrings[i]);
+'use strict';
+let args = ['C is fun', 'Python is cool', 'Javascript is amazing'];
+for (let arg in args) {
+  console.log(args[arg]);
 }
